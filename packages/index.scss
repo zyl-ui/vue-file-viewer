@@ -1,0 +1,52 @@
+.vue-file-viewer {
+  .banner {
+    overflow: auto;
+    text-align: center;
+    color: #000;
+  }
+
+  .file-select {
+    position: absolute;
+    left: 5%;
+    top: 17px;
+    margin-left: 20px;
+  }
+
+  .banner div {
+    color: #000;
+  }
+
+  .banner h1 {
+    font-size: 20px;
+    line-height: 2;
+    margin: 0.5em 0;
+  }
+
+  .loading {
+    text-align: center;
+    padding-top: 50px;
+  }
+
+  .ctrol_btn {
+    width: 60px;
+    position: sticky;
+    margin-left: auto;
+    margin-top: 2.5vh;
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    padding: 5px 8px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .ctrol_btn > div {
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  .scale_add {
+    margin-right: 15px;
+  }
+}

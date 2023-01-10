@@ -1,0 +1,82 @@
+{
+  "name": "@zuiyouliao/vue-file-viewer",
+  "version": "1.0.0",
+  "private": false,
+  "author": "zly <294333196@qq.com>",
+  "license": "MIT",
+  "description": "一个基于vue的多格式文件浏览查看器（支持格式：pptx,docx,xlsx,pdf,mp4,纯文本和图片）",
+  "directories": {
+    "doc": "doc",
+    "example": "examples",
+    "lib": "lib"
+  },
+  "files": [
+    "packages",
+    "lib",
+    "doc"
+  ],
+  "main": "lib/index",
+  "scripts": {
+    "serve": "vue-cli-service serve  --mode dev --open",
+    "build": "vue-cli-service build --mode pro",
+    "build:iframe": "vue-cli-service build --mode iframe",
+    "doc:dev": "vue-cli-service serve --mode doc --open",
+    "doc:build": "vue-cli-service build --mode doc",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@handsontable/vue": "^12.0.1",
+    "axios": "^0.27.2",
+    "core-js": "^3.22.7",
+    "d3": "^3.5.17",
+    "docx-preview": "^0.1.11",
+    "exceljs": "^4.3.0",
+    "handsontable": "^12.0.1",
+    "jquery": "^3.6.0",
+    "jszip": "^3.10.0",
+    "nvd3": "^1.8.6",
+    "pdfjs-dist": "^2.15.349",
+    "qs": "^6.10.3",
+    "tinycolor2": "^1.4.2",
+    "v-viewer": "^1.6.4"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.14"
+  },
+  "devDependencies": {
+    "vue": "^2.6.14",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.19.1",
+    "@vue/cli-plugin-babel": "^4.5.19",
+    "@vue/cli-plugin-eslint": "^4.5.19",
+    "@vue/cli-service": "^4.5.19",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.1.0",
+    "vue-template-compiler": "^2.6.14",
+    "worker-loader": "^3.0.8",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1",
+    "highlight.js": "^9.17.1",
+    "screenfull": "^5.0.0",
+    "vue-router": "^3.1.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyl-ui/vue-file-viewer.git"
+  },
+  "keywords": [
+    "vue",
+    "zyl-ui"
+  ],
+  "bugs": {
+    "url": "https://github.com/zyl-ui/vue-file-viewer/issues"
+  },
+  "homepage": "https://github.com/zyl-ui/vue-file-viewer#readme",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
