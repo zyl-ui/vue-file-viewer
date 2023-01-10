@@ -2,7 +2,6 @@
 node_modules
 /dist
 /lib
-/docdist
 .cache
 .temp
 doc/.vuepress/dist/

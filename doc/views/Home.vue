@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-10 19:30:07
+ * @LastEditTime: 2023-01-10 20:03:38
  * @Descripttion: 首页
 -->
 <template>
@@ -10,8 +10,11 @@
     <h2>iframe方式示例：</h2>
     <h4>推荐独立部署{{ config.name }}，并使用iframe方式引入以减少体积</h4>
     <h4>
-      1、需要前往本项目源码处下载编译后的产物
-      <a href="https://github.com/zyl-ui/vue-file-viewer" target="_blank">
+      1、需要自行前往本项目源码处下载编译后的产物
+      <a
+        href="https://github.com/zyl-ui/vue-file-viewer/tree/master/public/file-viewer"
+        target="_blank"
+      >
         file-viewer
       </a>
       <br />

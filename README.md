@@ -1,5 +1,7 @@
 # vue-file-viewer
 
+[在线示例文档](https://home.sharecorner.top/file-viewer-doc/index.html)
+
 ### 安装
 
 ```
