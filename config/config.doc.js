@@ -2,13 +2,13 @@
  * @Author: zhanghan
  * @Date: 2022-11-28 09:13:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-11 09:26:20
+ * @LastEditTime: 2023-01-11 13:33:12
  * @Descripttion: 文档环境配置
  */
 
 module.exports = {
   outputDir: './docs',
-  publicPath: '/file-viewer-doc',
+  publicPath: './',
   assetsDir: 'static',
   pages: {
     index: {

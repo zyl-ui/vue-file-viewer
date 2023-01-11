@@ -19,8 +19,8 @@
     "serve": "vue-cli-service serve  --mode dev --open",
     "build": "vue-cli-service build --mode pro",
     "build:iframe": "vue-cli-service build --mode iframe",
-    "doc:dev": "vue-cli-service serve --mode doc --open",
-    "doc:build": "vue-cli-service build --mode doc",
+    "doc:dev": "vue-cli-service serve --mode docdev --open",
+    "doc:build": "vue-cli-service build --mode docpro",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

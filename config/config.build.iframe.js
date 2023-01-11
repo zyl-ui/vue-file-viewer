@@ -2,17 +2,17 @@
  * @Author: zhanghan
  * @Date: 2022-11-28 09:13:53
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-10 15:07:37
+ * @LastEditTime: 2023-01-11 15:23:46
  * @Descripttion: iframe开发环境配置
  */
 const path = require('path')
-// 获取当前工作目录
-const cwd = process.cwd()
+//  获取基于当前路径的目标文件
+const resolve = (dir) => path.join(__dirname, '../', dir)
 
 module.exports = {
-  publicPath: '/file-viewer',
+  publicPath: './',
   // 放在public下供项目演示时作为iframe入口使用
-  outputDir: path.join(cwd, '/public/file-viewer'),
+  outputDir: resolve('/public/file-viewer'),
   pages: {
     index: {
       entry: 'examples/main.js',

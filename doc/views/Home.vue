@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-11 11:45:47
+ * @LastEditTime: 2023-01-11 13:51:05
  * @Descripttion: 首页
 -->
 <template>
@@ -15,7 +15,7 @@
         <iframe
           scrolling="auto"
           seamless
-          src="/file-viewer/index.html?shoHead=true&&fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
+          src="./file-viewer/index.html?shoHead=true&&fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
           style="border:0;height: 100%;width:100%"
         />
       </div>

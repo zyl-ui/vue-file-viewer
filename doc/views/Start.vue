@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-11 11:49:50
+ * @LastEditTime: 2023-01-11 16:20:52
  * @Descripttion: 快速上手
 -->
 <template>
@@ -24,23 +24,35 @@
       >
         file-viewer
       </a>
+      。
       <br />
-      （必须包含file-viewer文件夹，不可重命名，若需要重命名可下载源码重新修改构建）
     </h4>
-    <h4>2、将下载后的文件夹放在项目public文件夹中作为外部公共资源使用</h4>
+    <h4>
+      2、将下载后的file-viewer文件夹整个放在项目公共文件夹中作为外部公共资源使用。
+      <br />
+      （以vue-cli为例，放置在项目public文件夹下；其他框架自行选择合适的公共路径放置）
+    </h4>
     <h3>注意事项：</h3>
-    <h4>* 本项目示例链接随时失效，请勿直接用于生产环境</h4>
-    <h4>* 被浏览的文件链接必须同源或本身支持跨域访问</h4>
+    <h4>* 本项目示例链接随时失效，请勿直接用于生产环境。</h4>
+    <h4>* 被浏览的文件链接必须同源或本身支持跨域访问。</h4>
+    <h4>
+      *
+      若发布生产的项目不在服务器域名根目录，记得配置打包的前缀路径，打包后资源才能被正常引用。（以vue-cli为例，配置
+      <code>vue.config.js</code>
+      的
+      <code>publicPath: './'</code>
+      ； 其他框架请自行选择合适的配置文件进行配置）
+    </h4>
     <br />
 
-    <h4>一般url传入使用</h4>
+    <h3>一般url传入使用</h3>
     <section class="demo">
       <div
         class="section-content swiper"
         style="height: 500px;overflow: hidden;"
       >
         <iframe
-          src="/file-viewer/index.html?fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
+          src="./file-viewer/index.html?fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
           scrolling="auto"
           style="border:0;height: 100%;width:100%"
         />
@@ -54,7 +66,19 @@
       </Collapse>
     </section>
 
-    <h4>支持二进制文件流消息推送</h4>
+    <h3>支持二进制文件流消息推送</h3>
+    <h3>注意事项：</h3>
+    <h4>
+      *
+      若为node环境，且发布生产的项目不在服务器域名根目录，这将导致生产和开发环境的引用路径不一致（由于动态赋值的路径只会被编译器原样解析，需要特别注意通过配置打包的前缀路径也不会对此次生效，例如
+      <code>vue-cli</code>
+      的
+      <code>publicPath</code>
+      ），可通过
+      <code>process.env.NODE_ENV</code>
+      进行手动判断。
+    </h4>
+    <h4>* 若为浏览器环境，若有需要可在前面配置统一前缀路径即可。</h4>
     <section class="demo">
       <div
         class="section-content swiper"
@@ -101,7 +125,7 @@ import { config } from '../config'
 
 const iframeSnippet = `
 <iframe
-  src="/file-viewer/index.html?fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
+  src="./file-viewer/index.html?fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
   scrolling="auto"
   style="border:0;height: 100%;width:100%"
 />
@@ -119,7 +143,12 @@ export default {
       context: {
         // 查看器的地址
         // 自己项目内部署需要将编译后的产物file-viewer放在public文件夹中使用,编译后的产物需要下载，下载链接在文档上
-        origin: location.origin + '/file-viewer/index.html',
+        // 若为node环境，且发布生产的项目不在服务器域名根目录，这将导致生产和开发环境的引用路径不一致（由于动态赋值的路径只会被编译器原样解析，需要特别注意通过配置打包的前缀路径也不会对此次生效，例如vue-cli的publicPath），可通过process.env.NODE_ENV进行手动判断
+        // origin: location.origin + process.env.NODE_ENV === 'production'
+            ? '/你的前缀路径（没有可去除）/file-viewer/index.html'
+            : '/file-viewer/index.html',
+        // 若为浏览器环境，若有需要可在/file-viewer前面配置统一前缀路径即可
+        origin: location.origin + '/你的前缀路径（没有可去除）/file-viewer/index.html',
         // 目标frame
         frame: null,
         // 浏览的文件url
@@ -221,7 +250,12 @@ export default {
       context: {
         // 查看器的地址
         // 自己项目内部署需要将编译后的产物file-viewer放在public文件夹中使用,编译后的产物需要下载，下载链接在文档上
-        origin: location.origin + '/file-viewer/index.html',
+        // 若为node环境，且发布生产的项目不在服务器域名根目录，这将导致生产和开发环境的引用路径不一致（由于动态赋值的路径只会被编译器原样解析，需要特别注意通过配置打包的前缀路径也不会对此次生效，例如vue-cli的publicPath），可通过process.env.NODE_ENV进行手动判断
+        origin:
+          location.origin +
+          (process.env.NODE_ENV === 'production'
+            ? '/file-viewer-doc/file-viewer/index.html'
+            : '/file-viewer/index.html'),
         // 目标frame
         frame: null,
         // 浏览的文件url
@@ -231,6 +265,7 @@ export default {
   },
   mounted() {
     this.loadFromUrl()
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV)
   },
   methods: {
     // 获取文件二进制流
