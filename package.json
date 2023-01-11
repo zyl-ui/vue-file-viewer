@@ -4,16 +4,15 @@
   "private": false,
   "author": "zly <294333196@qq.com>",
   "license": "MIT",
-  "description": "一个基于vue的多格式文件浏览查看器（支持格式：pptx,docx,xlsx,pdf,mp4,纯文本和图片）",
+  "description": "一个基于vue的跨框架多格式文件浏览查看器（支持格式：pptx,docx,xlsx,pdf,mp4,纯文本和图片）",
   "directories": {
-    "doc": "doc",
+    "doc": "docs",
     "example": "examples",
     "lib": "lib"
   },
   "files": [
     "packages",
-    "lib",
-    "doc"
+    "lib"
   ],
   "main": "lib/index",
   "scripts": {

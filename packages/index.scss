@@ -1,15 +1,6 @@
 .vue-file-viewer {
   .banner {
-    overflow: auto;
-    text-align: center;
     color: #000;
-  }
-
-  .file-select {
-    position: absolute;
-    left: 5%;
-    top: 17px;
-    margin-left: 20px;
   }
 
   .banner div {
@@ -18,8 +9,54 @@
 
   .banner h1 {
     font-size: 20px;
-    line-height: 2;
-    margin: 0.5em 0;
+    text-align: center;
+  }
+
+  .file-select {
+    padding: 0 20px;
+    height: 45px;
+  }
+
+  .file-select button {
+    background: #fafafa;
+  }
+
+  .overlay button {
+    background: #12b6ff;
+    color: white;
+  }
+
+  button {
+    outline: none;
+    border-radius: 20px;
+    border: 1px solid #e3e3e3;
+    line-height: 19px;
+    padding: 5px 12px;
+    cursor: pointer;
+  }
+
+  .overlay input[type='text'] {
+    line-height: 19px;
+    height: 30px;
+    outline: none;
+    border: 1px solid silver;
+    border-radius: 6px;
+    margin-right: 10px;
+  }
+
+  .overlay {
+    z-index: 9999;
+    opacity: 0.4;
+    padding: 10px;
+    border-radius: 5px;
+    background: white;
+    border: 1px solid silver;
+    margin-top: 5px;
+    position: absolute;
+  }
+
+  .overlay:hover {
+    opacity: 1;
   }
 
   .loading {

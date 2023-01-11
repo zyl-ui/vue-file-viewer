@@ -1,12 +1,33 @@
 <template>
   <div class="vue-file-viewer">
-    <div class="banner" v-if="!hidden">
+    <div class="banner" v-if="shoHead || !hidden">
       <h1>
-        <div>
-          在线文档查看
-          <input class="file-select" type="file" @change="handleChange" />
-        </div>
+        在线文档查看
       </h1>
+      <div class="file-select">
+        <button
+          type="button"
+          style="margin-right: 20px"
+          @click.stop="isUrl = !isUrl"
+        >
+          【点击切换】{{ isUrl ? '上传预览' : '输入网址' }}
+        </button>
+        <div class="overlay">
+          <span v-if="isUrl" style="white-space: pre;">
+            <input
+              type="text"
+              v-model="inputUrl"
+              placeholder="请输入浏览文件地址"
+            />
+            <button type="button" @click.stop="loadFromUrl(inputUrl, true)">
+              预览
+            </button>
+          </span>
+          <span v-else>
+            <input type="file" @change="handleChange" />
+          </span>
+        </div>
+      </div>
     </div>
     <div v-show="!loading && showScale" class="ctrol_btn">
       <div class="scale_add" @click="scaleBtn('add')">➕</div>
@@ -36,14 +57,25 @@ export default {
     file: {
       type: [String, Object],
       default: ''
+    },
+    // 是否显示头部
+    shoHead: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
     return {
+      // 是否默认为输入网址
+      isUrl: true,
+      // input输入的url
+      inputUrl: '',
+      // 上传文件名
+      uploadFileName: '',
       // 加载状态跟踪
       loading: false,
-      // 是否开始放大缩小按钮
-      showScale: true,
+      // 是否开启放大缩小按钮
+      showScale: false,
       // 上个渲染实例
       last: null,
       // 隐藏头部，当基于消息机制渲染，将隐藏
@@ -56,7 +88,7 @@ export default {
   },
   created() {
     // 作为iframe使用时，允许使用预留的消息机制发送二进制数据，必须在url后添加?name=xxx.xxx&from=xxx
-    const { from, name, fileUrl } = parse(location.search.substring(1))
+    const { from, name, fileUrl, shoHead } = parse(location.search.substring(1))
     if (from) {
       window.addEventListener('message', (event) => {
         const { origin, data: blob } = event
@@ -69,7 +101,7 @@ export default {
     }
     // 作为iframe使用时，允许通过链接传参获取文件链接数据
     if (fileUrl) {
-      this.loadFromUrl(fileUrl)
+      this.loadFromUrl(fileUrl, Boolean(shoHead))
     }
     // 作为组件使用时，允许接收不同格式的文件数据（链接 or file）
     if (this.file) {
@@ -98,11 +130,12 @@ export default {
       this.clientZoom = scale
     },
     // 从url加载
-    loadFromUrl(url) {
-      this.hidden = true //隐藏头部
+    loadFromUrl(url, shoHead = false) {
+      this.hidden = !shoHead //隐藏头部
       this.loading = true
+      this.inputUrl = url
       // 要预览的文件地址
-      const filename = url.substr(url.lastIndexOf('/') + 1)
+      this.uploadFileName = url.substr(url.lastIndexOf('/') + 1)
       // 拼接iframe请求url
       axios({
         url,
@@ -113,7 +146,7 @@ export default {
           if (!data) {
             console.error('文件下载失败')
           }
-          const file = new File([data], filename, {})
+          const file = new File([data], this.uploadFileName, {})
           this.handleChange({ target: { files: [file] } })
         })
         .finally(() => {
