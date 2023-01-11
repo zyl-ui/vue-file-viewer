@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-09 15:04:10
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-10 10:48:03
+ * @LastEditTime: 2023-01-11 19:01:17
  * @Descripttion: 渲染图片的容器
 -->
 <template>

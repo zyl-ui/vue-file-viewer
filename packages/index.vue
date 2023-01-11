@@ -1,9 +1,6 @@
 <template>
   <div class="vue-file-viewer">
     <div class="banner" v-if="shoHead || !hidden">
-      <h1>
-        在线文档查看
-      </h1>
       <div class="file-select">
         <button
           type="button"
@@ -35,7 +32,7 @@
     </div>
     <div>
       <div v-show="loading" class="loading">正在加载中，请耐心等待...</div>
-      <div v-show="!loading" ref="output" :style="{ zoom: clientZoom }"></div>
+      <div v-show="!loading" ref="output" :style="{ zoom: clientZoom ,zIndex: 2013}"></div>
     </div>
   </div>
 </template>
@@ -76,12 +73,10 @@ export default {
       loading: false,
       // 是否开启放大缩小按钮
       showScale: false,
-      // 上个渲染实例
-      last: null,
       // 隐藏头部，当基于消息机制渲染，将隐藏
       hidden: false,
       // 安全宽度（低于此内容无法展示全）
-      safeWith: 1280,
+      safeWith: 1400,
       // 当前文档的缩放比例
       clientZoom: 1
     }
@@ -165,7 +160,7 @@ export default {
         const [file] = e.target.files
         const arrayBuffer = await readBuffer(file)
         this.loading = false
-        this.last = await this.displayResult(arrayBuffer, file)
+        await this.displayResult(arrayBuffer, file)
       } catch (e) {
         console.error(e)
       } finally {
@@ -195,20 +190,18 @@ export default {
       } else {
         this.showScale = true
       }
-      // 输出目的地
-      const { output } = this.$refs
       // 生成新的dom
       const node = document.createElement('div')
-      // 添加孩子，防止vue实例替换dom元素
-      if (this.last) {
-        output.innerHTML = ''
-        this.last.$destroy()
-      }
-      const child = output.appendChild(node)
+      // 删除容器里的元素
+      this.$refs.output.innerHTML = ''
+      const child = this.$refs.output.appendChild(node)
       // 调用渲染方法进行渲染
       return new Promise((resolve, reject) =>
         render(buffer, extend, child)
-          .then(resolve)
+          .then(() => {
+            this.bodyScale()
+            resolve()
+          })
           .catch(reject)
       )
     }

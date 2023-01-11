@@ -1,6 +1,9 @@
 .vue-file-viewer {
   .banner {
     color: #000;
+    position: absolute;
+    z-index: 2014;
+    width: 100%;
   }
 
   .banner div {
@@ -15,6 +18,8 @@
   .file-select {
     padding: 0 20px;
     height: 45px;
+    position: absolute;
+    top: 2.5vw;
   }
 
   .file-select button {
@@ -66,8 +71,8 @@
 
   .ctrol_btn {
     width: 60px;
-    position: sticky;
-    margin-left: auto;
+    position: absolute;
+    right: 2.5vw;
     margin-top: 2.5vh;
     z-index: 999999;
     display: flex;

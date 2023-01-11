@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-11 16:20:52
+ * @LastEditTime: 2023-01-11 19:24:01
  * @Descripttion: 快速上手
 -->
 <template>
@@ -47,14 +47,11 @@
 
     <h3>一般url传入使用</h3>
     <section class="demo">
-      <div
-        class="section-content swiper"
-        style="height: 500px;overflow: hidden;"
-      >
+      <div class="section-content">
         <iframe
           src="./file-viewer/index.html?fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
           scrolling="auto"
-          style="border:0;height: 100%;width:100%"
+          style="border:0;height: 500px;width:100%"
         />
       </div>
     </section>
@@ -80,11 +77,7 @@
     </h4>
     <h4>* 若为浏览器环境，若有需要可在前面配置统一前缀路径即可。</h4>
     <section class="demo">
-      <div
-        class="section-content swiper"
-        style="height: 500px;overflow: hidden;"
-        id="blobIframe"
-      ></div>
+      <div class="section-content" style="height: 500px" id="blobIframe"></div>
     </section>
     <section class="snippets">
       <Collapse>
@@ -101,8 +94,8 @@
     <CodeSnippet class="snippet" :code="installSnippet" lang="js" />
     <h3>使用：</h3>
     <section class="demo">
-      <div class="section-content swiper" style="height: 500px;">
-        <vue-file-viewer :file="file" />
+      <div class="section-content">
+        <vue-file-viewer :file="file" style="height: 500px;overflow: auto;" />
       </div>
     </section>
     <section class="snippets">
@@ -127,12 +120,12 @@ const iframeSnippet = `
 <iframe
   src="./file-viewer/index.html?fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
   scrolling="auto"
-  style="border:0;height: 100%;width:100%"
+  style="border:0;height: 500px;width:100%"
 />
 `
 
 const blobIframeSnippet1 = `
-<div id="blobIframe"></div>
+<div id="blobIframe" style="height: 500px"></div>
 `
 
 const blobIframeSnippet2 = `
@@ -228,7 +221,7 @@ data () {
 `
 
 const componentSnippet1 = `
-<vue-file-viewer :file="file" />
+<vue-file-viewer :file="file" style="height: 500px;overflow: auto;" />
 `
 export default {
   name: 'Home',
@@ -314,12 +307,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.swiper {
-  position: relative;
-  overflow: auto;
-  padding: 0 !important;
-  margin: 0 !important;
-}
-</style>

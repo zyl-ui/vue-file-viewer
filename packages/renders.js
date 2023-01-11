@@ -6,12 +6,9 @@ import renderImage from './vendors/image'
 import renderText from './vendors/text'
 import renderMp4 from './vendors/mp4'
 
-// 假装构造一个vue的包装，让上层统一处理销毁和替换节点
+// 假装构造一个vue的渲染容器
 const VueWrapper = (el) => ({
-  $el: el,
-  $destroy() {
-    // 什么也不需要 nothing to do
-  }
+  $el: el
 })
 
 const handlers = [
