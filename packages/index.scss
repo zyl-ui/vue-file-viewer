@@ -73,22 +73,23 @@
   }
 
   .ctrol_btn {
-    width: 120px;
+    // width: 120px;
     position: absolute;
     right: 2.5vw;
     margin-top: 2.5vh;
     z-index: 999999;
     display: flex;
     justify-content: center;
-    padding: 5px 8px;
+    align-items: center;
+    padding: 6px 15px;
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.3);
-  }
-
-  .ctrol_btn > div {
-    cursor: pointer;
     color: white;
     font-size: 1.2rem;
+  }
+
+  .ctrol_btn > span {
+    cursor: pointer;
   }
 
   .scale_add,

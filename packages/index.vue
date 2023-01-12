@@ -27,11 +27,17 @@
       </div>
     </div>
     <div v-show="!loading && showScale" class="ctrol_btn">
-      <div class="scale_add" @click="scaleBtn('add')">➕</div>
-      <div class="scale_reduce" @click="scaleBtn('reduce')">➖</div>
-      <div class="download" @click="fileDownload(file || iframeFile, uploadFileName)">
+      <span>
+        <span class="scale_add" @click="scaleBtn('add')">➕</span>
+        <span class="scale_reduce" @click="scaleBtn('reduce')">➖</span>
+      </span>
+      <span style="padding-right:15px;color:gray">|</span>
+      <span
+        class="download"
+        @click="fileDownload(file || iframeFile, uploadFileName)"
+      >
         下载
-      </div>
+      </span>
     </div>
     <div>
       <div v-show="loading" class="loading">正在加载中，请耐心等待...</div>
@@ -140,6 +146,9 @@ export default {
     },
     // 从url加载
     loadFromUrl(url, shoHead = false) {
+      // 校验链接是否合法
+      if (!url) return
+
       this.hidden = !shoHead //隐藏头部
       this.loading = true
       this.inputUrl = url
