@@ -43,6 +43,8 @@
 
 <script>
 import { getExtend, readBuffer, render } from './util'
+import { typeInfo } from './renders'
+import renders from './renders'
 import { parse } from 'qs'
 import axios from 'axios'
 
@@ -177,18 +179,10 @@ export default {
       const { name } = file
       // 取得扩展名并统一转小写兼容大写
       const extend = getExtend(name).toLowerCase()
+      // 媒体和图片类型或者不支持的类型不显示缩放按钮
       if (
-        [
-          'gif',
-          'jpg',
-          'jpeg',
-          'bmp',
-          'tiff',
-          'tif',
-          'png',
-          'svg',
-          'mp4'
-        ].includes(extend)
+        [...typeInfo.image, ...typeInfo.video].includes(extend) ||
+        !renders[extend]
       ) {
         this.showScale = false
       } else {
@@ -196,12 +190,13 @@ export default {
       }
       // 生成新的dom
       const node = document.createElement('div')
-      // 删除容器里的元素
+      // 清空容器里的元素
       this.$refs.output.innerHTML = ''
+      // 容器追加新的子元素
       const child = this.$refs.output.appendChild(node)
-      // 调用渲染方法进行渲染
+      // 调用对应渲染方法进行渲染
       return new Promise((resolve, reject) =>
-        render(buffer, extend, child)
+        render(buffer, child, extend, name)
           .then(() => {
             // 渲染结束调整缩放比例
             this.bodyScale()
