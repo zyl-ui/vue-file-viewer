@@ -2,8 +2,8 @@
  * @Author: zhanghan
  * @Date: 2023-01-09 15:04:10
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-12 13:35:09
- * @Descripttion: 渲染图片的容器
+ * @LastEditTime: 2023-01-12 14:28:23
+ * @Descripttion: 渲染不支持格式的容器
 -->
 <template>
   <div class="error">

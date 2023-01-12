@@ -29,6 +29,9 @@
     <div v-show="!loading && showScale" class="ctrol_btn">
       <div class="scale_add" @click="scaleBtn('add')">➕</div>
       <div class="scale_reduce" @click="scaleBtn('reduce')">➖</div>
+      <div class="download" @click="fileDownload(file, uploadFileName)">
+        下载
+      </div>
     </div>
     <div>
       <div v-show="loading" class="loading">正在加载中，请耐心等待...</div>
@@ -42,7 +45,7 @@
 </template>
 
 <script>
-import { getExtend, readBuffer, render } from './util'
+import { getExtend, readBuffer, render, fileDownload } from './util'
 import { typeInfo } from './renders'
 import renders from './renders'
 import { parse } from 'qs'
@@ -118,6 +121,7 @@ export default {
     }
   },
   methods: {
+    fileDownload,
     // 设置缩放比例
     scaleBtn(type) {
       if (this.clientZoom <= 0.1 && type !== 'add') return
@@ -144,14 +148,21 @@ export default {
         responseType: 'blob'
       })
         .then(({ data }) => {
-          if (!data) {
-            console.error('文件下载失败')
-          }
           const file = new File([data], this.uploadFileName, {})
           this.handleChange({ target: { files: [file] } })
         })
         .finally(() => {
           this.loading = false
+        })
+        .catch(() => {
+          console.error('文件下载失败')
+          // 展示文件不存在
+          renders['notFind'](
+            url,
+            this.$refs.output,
+            getExtend(this.uploadFileName),
+            this.uploadFileName
+          )
         })
     },
     // 从file文件流加载
@@ -177,6 +188,7 @@ export default {
     displayResult(buffer, file) {
       // 取得文件名
       const { name } = file
+      this.uploadFileName = name
       // 取得扩展名并统一转小写兼容大写
       const extend = getExtend(name).toLowerCase()
       // 媒体和图片类型或者不支持的类型不显示缩放按钮

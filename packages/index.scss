@@ -1,4 +1,7 @@
 .vue-file-viewer {
+  position: relative;
+  width: 100%;
+  height: 100%;
   .banner {
     color: #000;
     position: absolute;
@@ -70,7 +73,7 @@
   }
 
   .ctrol_btn {
-    width: 60px;
+    width: 120px;
     position: absolute;
     right: 2.5vw;
     margin-top: 2.5vh;
@@ -88,7 +91,8 @@
     font-size: 1.2rem;
   }
 
-  .scale_add {
+  .scale_add,
+  .scale_reduce {
     margin-right: 15px;
   }
 }

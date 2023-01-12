@@ -5,7 +5,8 @@ import renderPdf from './vendors/pdf'
 import renderImage from './vendors/image'
 import renderText from './vendors/text'
 import renderMp4 from './vendors/mp4'
-import rendError from './vendors/error'
+import renderError from './vendors/error'
+import renderNotFind from './vendors/notFind'
 
 // 假装构造一个vue的渲染容器
 const VueWrapper = (el) => ({
@@ -91,12 +92,21 @@ const handlers = [
       return VueWrapper(target)
     }
   },
-  // 错误处理
+  // 不支持格式处理
   {
     parentType: 'error',
     accepts: ['error'],
     handler: async (buffer, target, type, name) => {
-      rendError(buffer, target, type, name)
+      renderError(buffer, target, type, name)
+      return VueWrapper(target)
+    }
+  },
+  // 找不到文件处理
+  {
+    parentType: 'notFind',
+    accepts: ['notFind'],
+    handler: async (url, target, type, name) => {
+      renderNotFind(url, target, type, name)
       return VueWrapper(target)
     }
   }
