@@ -29,7 +29,7 @@
     <div v-show="!loading && showScale" class="ctrol_btn">
       <div class="scale_add" @click="scaleBtn('add')">➕</div>
       <div class="scale_reduce" @click="scaleBtn('reduce')">➖</div>
-      <div class="download" @click="fileDownload(file, uploadFileName)">
+      <div class="download" @click="fileDownload(file || iframeFile, uploadFileName)">
         下载
       </div>
     </div>
@@ -78,6 +78,8 @@ export default {
       inputUrl: '',
       // 上传文件名
       uploadFileName: '',
+      // 通过iframe传入的文件
+      iframeFile: '',
       // 加载状态跟踪
       loading: false,
       // 是否开启放大缩小按钮
@@ -99,12 +101,14 @@ export default {
         if (origin === from && blob instanceof Blob) {
           // 构造响应，自动渲染
           const file = new File([blob], name, {})
+          this.iframeFile = file
           this.loadFromBlob(file)
         }
       })
     }
     // 作为iframe使用时，允许通过链接传参获取文件链接数据
     if (fileUrl) {
+      this.iframeFile = fileUrl
       this.loadFromUrl(fileUrl, Boolean(shoHead))
     }
     // 作为组件使用时，允许接收不同格式的文件数据（链接 or file）
