@@ -32,7 +32,11 @@
     </div>
     <div>
       <div v-show="loading" class="loading">正在加载中，请耐心等待...</div>
-      <div v-show="!loading" ref="output" :style="{ zoom: clientZoom ,zIndex: 2013}"></div>
+      <div
+        v-show="!loading"
+        ref="output"
+        :style="{ zoom: clientZoom, zIndex: 2013 }"
+      ></div>
     </div>
   </div>
 </template>
@@ -171,8 +175,8 @@ export default {
     displayResult(buffer, file) {
       // 取得文件名
       const { name } = file
-      // 取得扩展名
-      const extend = getExtend(name)
+      // 取得扩展名并统一转小写兼容大写
+      const extend = getExtend(name).toLowerCase()
       if (
         [
           'gif',
@@ -199,6 +203,7 @@ export default {
       return new Promise((resolve, reject) =>
         render(buffer, extend, child)
           .then(() => {
+            // 渲染结束调整缩放比例
             this.bodyScale()
             resolve()
           })
