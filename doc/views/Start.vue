@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-12 13:49:33
+ * @LastEditTime: 2023-01-12 14:49:53
  * @Descripttion: 快速上手
 -->
 <template>
@@ -42,6 +42,9 @@
       的
       <code>publicPath: './'</code>
       ； 其他框架请自行选择合适的配置文件进行配置）
+    </h4>
+    <h4>
+      由于office系列格式的文件解析微软不开源，无法保证百分百还原文档效果，若实际需求没有严格要求百分百还原一致，您可以使用纯前端渲染office文件的这种方式，否则建议通过后端统一转为PDF或者图片格式进行浏览，PDF和图片格式的文件浏览效果最佳，内核渲染方案也较为成熟。
     </h4>
     <br />
 

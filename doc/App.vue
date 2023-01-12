@@ -18,9 +18,14 @@
     <router-view />
 
     <section class="more">
-      <div class="section-content">
-        (©) 2023 - {{ new Date().getFullYear() }} by
+      <div>
+        (©) 2023 - {{ new Date().getFullYear() }} copy by
         <a href="https://blog.sharecorner.top/" target="_blank">追寻</a>
+        特别鸣谢
+        <a href="https://blog.csdn.net/wybaby168/" target="_blank">
+          小爬的老粉丝
+        </a>
+        提供源码内核思路
       </div>
     </section>
   </div>
@@ -185,5 +190,6 @@ a {
   font-size: 18px;
   text-align: center;
   background: lighten($primary-color, 45%);
+  padding: 10px 0;
 }
 </style>
