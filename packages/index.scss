@@ -96,4 +96,8 @@
   .scale_reduce {
     margin-right: 15px;
   }
+
+  /deep/ .output > div {
+    height: 100%;
+  }
 }

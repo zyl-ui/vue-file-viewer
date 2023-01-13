@@ -2,12 +2,16 @@
  * @Author: zhanghan
  * @Date: 2023-01-09 21:22:17
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-12 13:08:18
+ * @LastEditTime: 2023-01-13 11:59:23
  * @Descripttion:
  */
 import { atob } from './pollify'
 import renders from './renders'
 
+/**
+ * 文件对象转文件流
+ * @param {object} file 文件对象
+ */
 export async function readBuffer(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -17,6 +21,10 @@ export async function readBuffer(file) {
   })
 }
 
+/**
+ * 文件流转base64
+ * @param {object} buffer 文件流
+ */
 export async function readDataURL(buffer) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -26,6 +34,10 @@ export async function readDataURL(buffer) {
   })
 }
 
+/**
+ * 文件流转utf8文本
+ * @param {object} buffer 文件流
+ */
 export async function readText(buffer) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -35,9 +47,13 @@ export async function readText(buffer) {
   })
 }
 
+/**
+ * 获取文件后缀
+ * @param {string} name 文件名
+ */
 export function getExtend(name) {
   const dot = name.lastIndexOf('.')
-  return name.substr(dot + 1)
+  return name.substring(dot + 1)
 }
 
 /**
@@ -118,9 +134,10 @@ export function getUrlFileName(url) {
 /**
  * 根据文件类型渲染对应容器
  * @param {buffer} buffer 文件流
- * @param {buffer} type 文件后缀
- * @param {buffer} type 渲染目标元素
- */
+ * @param {buffer} target 渲染目标元素
+ * @param {buffer} type 文件类型
+ * @param {buffer} name 文件名称
+ **/
 export async function render(buffer, target, type, name) {
   const handler = renders[type]
   if (handler) {

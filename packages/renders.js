@@ -5,6 +5,7 @@ import renderPdf from './vendors/pdf'
 import renderImage from './vendors/image'
 import renderText from './vendors/text'
 import renderMp4 from './vendors/mp4'
+import renderOfficeOnline from './vendors/officeOnline'
 import renderError from './vendors/error'
 import renderNotFind from './vendors/notFind'
 
@@ -89,6 +90,15 @@ const handlers = [
     accepts: ['mp4'],
     handler: async (buffer, target) => {
       renderMp4(buffer, target)
+      return VueWrapper(target)
+    }
+  },
+  // office文件使用微软在线接口
+  {
+    parentType: 'officeOnline',
+    accepts: ['officeOnline'],
+    handler: async (url, target, type, name) => {
+      renderOfficeOnline(url, target, type, name)
       return VueWrapper(target)
     }
   },

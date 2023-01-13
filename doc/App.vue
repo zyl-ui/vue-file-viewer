@@ -84,7 +84,6 @@ header {
 section {
   .section-content {
     margin: 0;
-    padding-bottom: 10px;
     box-sizing: border-box;
   }
 

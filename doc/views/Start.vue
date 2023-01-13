@@ -2,17 +2,49 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-12 14:49:53
+ * @LastEditTime: 2023-01-13 14:02:18
  * @Descripttion: 快速上手
 -->
 <template>
   <div class="page-home page">
+    <h3>属性(组件和iframe传参都支持)：</h3>
+    <ul>
+      <li>fileUrl: string 上传的地址（必传）</li>
+      <li>
+        useOfficeMicroOnline: boolean
+        是否开启使用微软提供的office文件在线访问接口（内网无效，可选，默认false关闭）
+      </li>
+    </ul>
+    <h3>注意事项：</h3>
+    <h4>* 被浏览的文件链接必须同源或本身支持跨域才能访问和下载文件。</h4>
+    <h4>
+      *
+      若发布生产的项目不在服务器域名根目录，记得配置打包的前缀路径，打包后资源才能被正常引用。（以vue-cli为例，配置
+      <code>vue.config.js</code>
+      的
+      <code>publicPath: './'</code>
+      ； 其他框架请自行选择合适的配置文件进行配置）
+    </h4>
+    <h4>
+      *
+      由于office系列格式的文件解析微软不开源，无法保证百分百还原文档效果，若实际需求没有严格要求百分百还原一致，您可以使用纯前端渲染office文件的这种方式，否则建议通过后端统一转为PDF或者图片格式进行浏览，PDF和图片格式的文件浏览效果最佳，内核渲染方案也较为成熟。
+    </h4>
+    <h4>
+      * 或者您也可以通过iframe或者组件形式传递
+      <code>useOfficeMicroOnline = true</code>
+      这个属性开启office系列文件使用内置的微软文档在线访问接口，浏览效果会比纯前端渲染好。
+    </h4>
     <h2>iframe方式示例（推荐）：</h2>
     <h3>使用说明：</h3>
     <h4>
-      推荐独立部署
-      {{ config.name }}
-      的编译构建产物，并使用iframe方式引入以减少引入构建代价，提升构建效率。
+      推荐独立部署本项目的编译编译构建产物
+      <a
+        href="https://github.com/zyl-ui/vue-file-viewer/tree/master/public/file-viewer"
+        target="_blank"
+      >
+        file-viewer
+      </a>
+      ，并使用iframe方式引入以减少引入构建代价，提升构建效率。
     </h4>
     <h4>此种方式支持跨框架使用。</h4>
     <h3>使用步骤：</h3>
@@ -25,28 +57,12 @@
         file-viewer
       </a>
       。
-      <br />
     </h4>
     <h4>
-      2、将下载后的file-viewer文件夹整个放在项目公共文件夹中作为外部公共资源使用。
-      <br />
-      （以vue-cli为例，放置在项目public文件夹下；其他框架自行选择合适的公共路径放置）
+      2、将下载后的 file-viewer
+      文件夹整个放在项目公共文件夹中作为外部公共资源使用。 （以 vue-cli
+      为例，放置在项目 public 文件夹下；其他框架自行选择合适的公共路径放置）
     </h4>
-    <h3>注意事项：</h3>
-    <h4>* 本项目示例链接随时失效，请勿直接用于生产环境。</h4>
-    <h4>* 被浏览的文件链接必须同源或本身支持跨域才能访问和下载文件。</h4>
-    <h4>
-      *
-      若发布生产的项目不在服务器域名根目录，记得配置打包的前缀路径，打包后资源才能被正常引用。（以vue-cli为例，配置
-      <code>vue.config.js</code>
-      的
-      <code>publicPath: './'</code>
-      ； 其他框架请自行选择合适的配置文件进行配置）
-    </h4>
-    <h4>
-      由于office系列格式的文件解析微软不开源，无法保证百分百还原文档效果，若实际需求没有严格要求百分百还原一致，您可以使用纯前端渲染office文件的这种方式，否则建议通过后端统一转为PDF或者图片格式进行浏览，PDF和图片格式的文件浏览效果最佳，内核渲染方案也较为成熟。
-    </h4>
-    <br />
 
     <h3>一般url传入使用</h3>
     <section class="demo">
@@ -66,7 +82,36 @@
       </Collapse>
     </section>
 
-    <h3>支持二进制文件流消息推送</h3>
+    <h3>
+      可通过
+      <code>useOfficeMicroOnline = true</code>
+      开启微软文档在线访问接口，该接口兼容不带后缀x的低版本文档，如：doc或者docx；
+      开启后属于office的文件会通过微软提供的api接口进行访问
+      <code>http://view.officeapps.live.com/op/view.aspx?src=文件地址</code>
+      （隐私文件不推荐开启，该选项内网无联网时不可用）
+    </h3>
+    <section class="demo">
+      <div class="section-content">
+        <iframe
+          src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://home.sharecorner.top/fileTest/doc.doc"
+          scrolling="auto"
+          style="border:0;height: 500px;width:100%"
+        />
+      </div>
+    </section>
+    <section class="snippets">
+      <Collapse>
+        <div class="section-content">
+          <CodeSnippet
+            class="snippet"
+            :code="useOfficeMicroOnlineSnippet"
+            lang="html"
+          />
+        </div>
+      </Collapse>
+    </section>
+
+    <h3>支持接收二进制文件流消息推送</h3>
     <h3>注意事项：</h3>
     <h4>
       *
@@ -94,11 +139,17 @@
 
     <h2>组件方式示例：</h2>
     <h3>安装：</h3>
-    <CodeSnippet class="snippet" :code="installSnippet" lang="js" />
+    <CodeSnippet class="snippet" :code="installSnippet1" lang="js" />
+    <CodeSnippet class="snippet" :code="installSnippet2" lang="js" />
+    <div>或者页面内单独引入：</div>
+    <CodeSnippet class="snippet" :code="installSnippet3" lang="js" />
     <h3>使用：</h3>
     <section class="demo">
       <div class="section-content">
-        <vue-file-viewer :file="file" style="height: 500px;overflow: auto;" />
+        <vue-file-viewer
+          :fileUrl="file"
+          style="height: 500px;overflow: auto;"
+        />
       </div>
     </section>
     <section class="snippets">
@@ -122,6 +173,14 @@ import { config } from '../config'
 const iframeSnippet = `
 <iframe
   src="./file-viewer/index.html?fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
+  scrolling="auto"
+  style="border:0;height: 500px;width:100%"
+/>
+`
+
+const useOfficeMicroOnlineSnippet = `
+<iframe
+  src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://home.sharecorner.top/fileTest/doc.doc"
   scrolling="auto"
   style="border:0;height: 500px;width:100%"
 />
@@ -202,17 +261,29 @@ export default {
   }
 `
 
-const installSnippet = `
+const installSnippet1 = `npm install --save '${config.name}'`
+
+const installSnippet2 = `
 import Vue from 'vue'
 import App from './App.vue'
-import vueFileViewer from '${config.name}'
+import VueFileViewer from '${config.name}'
 
-Vue.use(vueFileViewer)
+Vue.use(VueFileViewer)
 
 new Vue({
   el: '#app',
   render: h => h(App)
 });
+`
+
+const installSnippet3 = `
+import { VueFileViewer } from '${config.name}'
+
+export default {
+  components: {
+    VueFileViewer
+  }
+}
 `
 
 const componentSnippet2 = `
@@ -224,7 +295,7 @@ data () {
 `
 
 const componentSnippet1 = `
-<vue-file-viewer :file="file" style="height: 500px;overflow: auto;" />
+<vue-file-viewer :fileUrl="file"  style="height: 500px;overflow: auto;" />
 `
 export default {
   name: 'Home',
@@ -237,9 +308,12 @@ export default {
     return {
       config,
       iframeSnippet,
+      useOfficeMicroOnlineSnippet,
       blobIframeSnippet1,
       blobIframeSnippet2,
-      installSnippet,
+      installSnippet1,
+      installSnippet2,
+      installSnippet3,
       componentSnippet2,
       componentSnippet1,
       file: 'https://home.sharecorner.top/fileTest/word.docx',

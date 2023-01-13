@@ -39,11 +39,13 @@
         下载
       </span>
     </div>
-    <div>
+    <div style="height: 100%;width: 100%;">
       <div v-show="loading" class="loading">正在加载中，请耐心等待...</div>
       <div
         v-show="!loading"
         ref="output"
+        class="output"
+        style="height: 100%;width: 100%;"
         :style="{ zoom: clientZoom, zIndex: 2013 }"
       ></div>
     </div>
@@ -66,12 +68,17 @@ export default {
   name: 'VueFileViewer',
   props: {
     // 上传的地址
-    file: {
+    fileUrl: {
       type: [String, Object],
       default: ''
     },
     // 是否显示头部
     shoHead: {
+      type: Boolean,
+      default: false
+    },
+    // 是否开启使用内置的微软文档在线访问接口
+    useOfficeMicroOnline: {
       type: Boolean,
       default: false
     }
@@ -98,9 +105,11 @@ export default {
       clientZoom: 1
     }
   },
-  created() {
+  mounted() {
     // 作为iframe使用时，允许使用预留的消息机制发送二进制数据，必须在url后添加?name=xxx.xxx&from=xxx
-    const { from, name, fileUrl, shoHead } = parse(location.search.substring(1))
+    const { from, name, fileUrl, shoHead, useOfficeMicroOnline } = parse(
+      location.search.substring(1)
+    )
     if (from) {
       window.addEventListener('message', (event) => {
         const { origin, data: blob } = event
@@ -115,16 +124,18 @@ export default {
     // 作为iframe使用时，允许通过链接传参获取文件链接数据
     if (fileUrl) {
       this.iframeFile = fileUrl
-      this.loadFromUrl(fileUrl, Boolean(shoHead))
+      this.loadFromUrl(fileUrl, Boolean(shoHead), Boolean(useOfficeMicroOnline))
     }
     // 作为组件使用时，允许接收不同格式的文件数据（链接 or file）
-    if (this.file) {
-      typeof this.file === 'string'
-        ? this.loadFromUrl(this.file)
-        : this.loadFromBlob(this.file)
+    if (this.fileUrl) {
+      typeof this.fileUrl === 'string'
+        ? this.loadFromUrl(
+            this.fileUrl,
+            this.shoHead,
+            this.useOfficeMicroOnline
+          )
+        : this.loadFromBlob(this.fileUrl)
     }
-  },
-  mounted() {
     // 窗体大小改变时自动计算缩放比例
     window.onload = window.onresize = () => {
       this.bodyScale()
@@ -145,7 +156,7 @@ export default {
       this.clientZoom = scale
     },
     // 从url加载
-    loadFromUrl(url, shoHead = false) {
+    loadFromUrl(url, shoHead = false, useOfficeMicroOnline = false) {
       // 校验链接是否合法
       if (!url) return
 
@@ -154,6 +165,24 @@ export default {
       this.inputUrl = url
       // 要预览的文件地址
       this.uploadFileName = url.substr(url.lastIndexOf('/') + 1)
+      // 取得扩展名并统一转小写兼容大写
+      const extend = getExtend(this.uploadFileName).toLowerCase()
+      // 判断是否为office文件
+      const isOffice = typeInfo.office.find((item) => item.indexOf(extend) > -1)
+      // 判断是否需要使用外部微软第三方office在线浏览的方式
+      if (useOfficeMicroOnline && isOffice) {
+        // 展示微软第三方office在线浏览
+        renders['officeOnline'](
+          url,
+          this.$refs.output,
+          'officeOnline',
+          this.uploadFileName
+        ).finally(() => {
+          this.loading = false
+        })
+        return
+      }
+      // 内部渲染的方式
       // 拼接iframe请求url
       axios({
         url,
@@ -173,7 +202,7 @@ export default {
           renders['notFind'](
             url,
             this.$refs.output,
-            getExtend(this.uploadFileName),
+            extend,
             this.uploadFileName
           )
         })
@@ -204,7 +233,7 @@ export default {
       this.uploadFileName = name
       // 取得扩展名并统一转小写兼容大写
       const extend = getExtend(name).toLowerCase()
-      // 媒体和图片类型或者不支持的类型不显示缩放按钮
+      // 媒体和图片类型/不支持的类型不显示缩放按钮
       if (
         [...typeInfo.image, ...typeInfo.video].includes(extend) ||
         !renders[extend]
