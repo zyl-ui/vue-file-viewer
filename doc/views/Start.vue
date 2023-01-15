@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-15 23:24:56
+ * @LastEditTime: 2023-01-15 23:57:07
  * @Descripttion: 快速上手
 -->
 <template>
@@ -92,9 +92,9 @@
       （隐私文件不推荐开启，该选项内网无联网时不可用）
     </h4>
     <h4>
-      该方案若手机端通过iframe访问整个父页面会被重定向，自
+      若手机端通过iframe访问微软文档，整个父页面会被重定向，自
       <code>v1.2.1</code>
-      版本开始，手机端访问时改为需要用户手动点击a标签跳转查看。pc端可正常访问
+      版本开始，手机端访问时需要用户手动点击跳转查看，pc端可正常访问。
     </h4>
     <section class="demo">
       <div class="section-content">
