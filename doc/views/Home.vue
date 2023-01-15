@@ -2,11 +2,11 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-12 13:48:35
+ * @LastEditTime: 2023-01-15 22:22:49
  * @Descripttion: 首页
 -->
 <template>
-  <div class="page-home page">
+  <div class="page-content">
     <section class="demo">
       <div class="section-content">
         <iframe

@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-file-viewer">
+  <div class="vue-file-viewer" id="vue-file-viewer">
     <div class="banner" v-if="shoHead || !hidden">
       <div class="file-select">
         <button
@@ -45,8 +45,12 @@
         v-show="!loading"
         ref="output"
         class="output"
-        style="height: 100%;width: 100%;"
-        :style="{ zoom: clientZoom, zIndex: 2013 }"
+        style="height: 100%;width: 100%;overflow: auto;transform-origin: top left;"
+        :style="{
+          transform: `scale(${clientZoom})`,
+          height: (1 / clientZoom) * 100 + '%',
+          width: (1 / clientZoom) * 100 + '%'
+        }"
       ></div>
     </div>
   </div>
@@ -150,9 +154,8 @@ export default {
     },
     // 自动缩放比例
     bodyScale() {
-      const devicewidth = document.documentElement.clientWidth
-      const scale =
-        devicewidth > this.safeWith ? 1 : devicewidth / this.safeWith // 分母——设计稿的尺寸
+      const devicewidth = document.getElementById('vue-file-viewer').clientWidth
+      const scale = devicewidth / this.safeWith // 分母——设计稿的尺寸
       this.clientZoom = scale
     },
     // 从url加载

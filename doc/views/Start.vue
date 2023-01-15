@@ -2,11 +2,12 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-13 14:02:18
+ * @LastEditTime: 2023-01-15 23:24:56
  * @Descripttion: 快速上手
 -->
 <template>
-  <div class="page-home page">
+  <div class="page-content">
+    <h2>快速上手：</h2>
     <h3>属性(组件和iframe传参都支持)：</h3>
     <ul>
       <li>fileUrl: string 上传的地址（必传）</li>
@@ -82,14 +83,19 @@
       </Collapse>
     </section>
 
-    <h3>
+    <h4>
       可通过
       <code>useOfficeMicroOnline = true</code>
       开启微软文档在线访问接口，该接口兼容不带后缀x的低版本文档，如：doc或者docx；
       开启后属于office的文件会通过微软提供的api接口进行访问
       <code>http://view.officeapps.live.com/op/view.aspx?src=文件地址</code>
       （隐私文件不推荐开启，该选项内网无联网时不可用）
-    </h3>
+    </h4>
+    <h4>
+      该方案若手机端通过iframe访问整个父页面会被重定向，自
+      <code>v1.2.1</code>
+      版本开始，手机端访问时改为需要用户手动点击a标签跳转查看。pc端可正常访问
+    </h4>
     <section class="demo">
       <div class="section-content">
         <iframe
@@ -141,15 +147,12 @@
     <h3>安装：</h3>
     <CodeSnippet class="snippet" :code="installSnippet1" lang="js" />
     <CodeSnippet class="snippet" :code="installSnippet2" lang="js" />
-    <div>或者页面内单独引入：</div>
+    <div>或者页面内按需引入：</div>
     <CodeSnippet class="snippet" :code="installSnippet3" lang="js" />
     <h3>使用：</h3>
     <section class="demo">
       <div class="section-content">
-        <vue-file-viewer
-          :fileUrl="file"
-          style="height: 500px;overflow: auto;"
-        />
+        <vue-file-viewer :fileUrl="file" style="height: 500px;" />
       </div>
     </section>
     <section class="snippets">
@@ -295,7 +298,7 @@ data () {
 `
 
 const componentSnippet1 = `
-<vue-file-viewer :fileUrl="file"  style="height: 500px;overflow: auto;" />
+<vue-file-viewer :fileUrl="file"  style="height: 500px;" />
 `
 export default {
   name: 'Home',

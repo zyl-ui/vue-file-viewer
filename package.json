@@ -1,6 +1,6 @@
 {
   "name": "@zuiyouliao/vue-file-viewer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": false,
   "author": "zhanghan <294333196@qq.com>",
   "license": "MIT",
@@ -51,7 +51,7 @@
     "@vue/cli-service": "^4.5.19",
     "eslint": "^6.8.0",
     "eslint-plugin-vue": "^8.0.3",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.14.1",
     "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.6.14",
     "worker-loader": "^3.0.8",
@@ -76,6 +76,9 @@
   "browserslist": [
     "> 1%",
     "last 2 versions",
-    "not dead"
+    "not ie <= 8",
+    "iOS >= 8",
+    "Firefox >= 20",
+    "Android >= 4.4"
   ]
 }

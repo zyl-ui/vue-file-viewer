@@ -75,10 +75,11 @@ header {
   }
 }
 
-.page {
+.page-content {
   max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
+  word-break: break-word;
 }
 
 section {
@@ -180,7 +181,6 @@ a {
 
 .demo {
   background: white;
-  margin-top: 12px;
   border: 1px solid #eee;
   border-radius: 3px 3px 0 0;
 }
