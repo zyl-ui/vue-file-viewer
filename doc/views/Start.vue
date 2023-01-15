@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2023-01-10 14:28:29
  * @LastEditors: zhanghan
- * @LastEditTime: 2023-01-15 23:57:07
+ * @LastEditTime: 2023-01-16 00:26:29
  * @Descripttion: 快速上手
 -->
 <template>
@@ -38,7 +38,7 @@
     <h2>iframe方式示例（推荐）：</h2>
     <h3>使用说明：</h3>
     <h4>
-      推荐独立部署本项目的编译编译构建产物
+      推荐直接部署本项目最新版本的独立构建产物
       <a
         href="https://github.com/zyl-ui/vue-file-viewer/tree/master/public/file-viewer"
         target="_blank"

@@ -34,7 +34,7 @@
       <span style="padding-right:15px;color:gray">|</span>
       <span
         class="download"
-        @click="fileDownload(file || iframeFile, uploadFileName)"
+        @click="fileDownload(inputUrl || iframeFile, uploadFileName)"
       >
         下载
       </span>
@@ -256,7 +256,9 @@ export default {
         render(buffer, child, extend, name)
           .then(() => {
             // 渲染结束调整缩放比例
-            this.bodyScale()
+            this.$nextTick(() => {
+              this.bodyScale()
+            })
             resolve()
           })
           .catch(reject)
