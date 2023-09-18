@@ -11,7 +11,7 @@
       <div class="section-content">
         <iframe
           scrolling="auto"
-          src="./file-viewer/index.html?shoHead=true&&fileUrl=https://home.sharecorner.top/fileTest/pdf.pdf"
+          src="./file-viewer/index.html?shoHead=true&&fileUrl=https://home.me7.cn/fileTest/pdf.pdf"
           style="border:0;height: 800px;width:100%"
         />
       </div>
