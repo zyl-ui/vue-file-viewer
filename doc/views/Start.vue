@@ -327,7 +327,7 @@ export default {
         origin:
           location.origin +
           (process.env.NODE_ENV === 'production'
-            ? '/file-viewer-doc/file-viewer/index.html'
+            ? '/file-viewer/index.html'
             : '/file-viewer/index.html'),
         // 目标frame
         frame: null,
