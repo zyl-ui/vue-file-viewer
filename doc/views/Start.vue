@@ -69,7 +69,7 @@
     <section class="demo">
       <div class="section-content">
         <iframe
-          src="./file-viewer/index.html?fileUrl=https://home.me7.cn/fileTest/pdf.pdf"
+          src="./file-viewer/index.html?fileUrl=https://file-viewer.me7.cn/fileTest/pdf.pdf"
           scrolling="auto"
           style="border:0;height: 500px;width:100%"
         />
@@ -99,7 +99,7 @@
     <section class="demo">
       <div class="section-content">
         <iframe
-          src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://home.me7.cn/fileTest/doc.doc"
+          src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://file-viewer.me7.cn/fileTest/doc.doc"
           scrolling="auto"
           style="border:0;height: 500px;width:100%"
         />
@@ -175,7 +175,7 @@ import { config } from '../config'
 
 const iframeSnippet = `
 <iframe
-  src="./file-viewer/index.html?fileUrl=https://home.me7.cn/fileTest/pdf.pdf"
+  src="./file-viewer/index.html?fileUrl=https://file-viewer.me7.cn/fileTest/pdf.pdf"
   scrolling="auto"
   style="border:0;height: 500px;width:100%"
 />
@@ -183,7 +183,7 @@ const iframeSnippet = `
 
 const useOfficeMicroOnlineSnippet = `
 <iframe
-  src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://home.me7.cn/fileTest/doc.doc"
+  src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://file-viewer.me7.cn/fileTest/doc.doc"
   scrolling="auto"
   style="border:0;height: 500px;width:100%"
 />
@@ -210,7 +210,7 @@ export default {
         // 目标frame
         frame: null,
         // 浏览的文件url
-        url: 'https://home.me7.cn/fileTest/pic.png'
+        url: 'https://file-viewer.me7.cn/fileTest/pic.png'
       }
     }
   },
@@ -292,7 +292,7 @@ export default {
 const componentSnippet2 = `
 data () {
   return {
-    file: 'https://home.me7.cn/fileTest/word.docx' // or 原生 File 文件对象也可以被接收
+    file: 'https://file-viewer.me7.cn/fileTest/word.docx' // or 原生 File 文件对象也可以被接收
   }
 }
 `
@@ -319,7 +319,7 @@ export default {
       installSnippet3,
       componentSnippet2,
       componentSnippet1,
-      file: 'https://home.me7.cn/fileTest/word.docx',
+      file: 'https://file-viewer.me7.cn/fileTest/word.docx',
       context: {
         // 查看器的地址
         // 自己项目内部署需要将编译后的产物file-viewer放在public文件夹中使用,编译后的产物需要下载，下载链接在文档上
@@ -332,7 +332,7 @@ export default {
         // 目标frame
         frame: null,
         // 浏览的文件url
-        url: 'https://home.me7.cn/fileTest/pic.png'
+        url: 'https://file-viewer.me7.cn/fileTest/pic.png'
       }
     }
   },
