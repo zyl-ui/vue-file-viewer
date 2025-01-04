@@ -6,14 +6,18 @@
  * @Descripttion: iframe开发环境配置
  */
 const path = require('path')
-const fs = require('fs-extra'); // 引入 fs-extra 模块
+const fs = require('fs-extra')
 //  获取基于当前路径的目标文件
 const resolve = (dir) => path.join(__dirname, '../', dir)
+
+// 添加日志查看路径
+console.log('Source path:', resolve('public/file-viewer'))
+console.log('Target path:', resolve('docs'))
 
 module.exports = {
   publicPath: './',
   // 放在public下供项目演示时作为iframe入口使用
-  outputDir: resolve('/public/file-viewer'),
+  outputDir: resolve('public/file-viewer'),
   pages: {
     index: {
       entry: 'examples/main.js',
@@ -46,21 +50,26 @@ module.exports = {
     // 别名配置
     config.resolve.alias.set('@', '/examples').set('@packages', '/packages')
 
-    // 添加一个钩子在打包完成后复制文件夹
+    // 使用 fs-extra 复制文件
     config.plugin('copy-file-viewer').use({
       apply: (compiler) => {
-        compiler.hooks.afterEmit.tap('CopyFileViewerPlugin', (compilation) => {
-          const sourceDir = resolve('/public/file-viewer');
-          const targetDir = resolve('/docs');
-          fs.copy(sourceDir, targetDir, (err) => {
-            if (err) {
-              console.error('文件夹复制失败:', err);
-            } else {
-              console.log('文件夹复制成功:', sourceDir, '->', targetDir);
-            }
-          });
-        });
-      },
-    });
+        compiler.hooks.done.tap('CopyFileViewerPlugin', (stats) => {
+          const sourceDir = resolve('public/file-viewer')
+          const targetDir = resolve('docs/file-viewer')
+          
+          // 添加日志
+          console.log('开始复制文件...')
+          console.log('源目录:', sourceDir)
+          console.log('目标目录:', targetDir)
+
+          try {
+            fs.copySync(sourceDir, targetDir, { overwrite: true })
+            console.log('文件复制成功!')
+          } catch (err) {
+            console.error('复制失败:', err)
+          }
+        })
+      }
+    })
   }
 }
