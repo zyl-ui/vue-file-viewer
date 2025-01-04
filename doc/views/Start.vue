@@ -99,7 +99,7 @@
     <section class="demo">
       <div class="section-content">
         <iframe
-          src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://file-viewer.me7.cn/fileTest/doc.doc"
+          src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://file-viewer.me7.cn/fileTest/doc.docx"
           scrolling="auto"
           style="border:0;height: 500px;width:100%"
         />
@@ -183,7 +183,7 @@ const iframeSnippet = `
 
 const useOfficeMicroOnlineSnippet = `
 <iframe
-  src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://file-viewer.me7.cn/fileTest/doc.doc"
+  src="./file-viewer/index.html?useOfficeMicroOnline=true&fileUrl=https://file-viewer.me7.cn/fileTest/doc.docx"
   scrolling="auto"
   style="border:0;height: 500px;width:100%"
 />
