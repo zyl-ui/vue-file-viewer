@@ -151,7 +151,7 @@
       </Collapse>
     </section>
 
-    <h2>3、接收blob二进制文件流消息示例</h2>
+    <h2 style="text-align: center;">3、接收blob二进制文件流消息示例</h2>
     <h3>注意事项：</h3>
     <ul>
       <li>
