@@ -16,30 +16,31 @@
         是否开启使用微软提供的office文件在线访问接口（内网无效，可选，默认false关闭）
       </li>
     </ul>
-    <h3>事件(组件和iframe传参都支持)：</h3>
+    <h3>事件：</h3>
     <ul>
-      <li>fileLoaded: function 文档加载完成的回调函数</li>
+      <li>fileLoaded: function 文档加载完成的回调函数 <label style="font-size: 14px;">（iframe请使用window.addEventListener('message', (event) => {})接收事件回调，查阅示例代码）</label></li>
+      
     </ul>
     <h3>注意事项：</h3>
-    <h4>* 被浏览的文件链接必须同源或本身支持跨域才能访问和下载文件。</h4>
-    <h4>
-      *
-      若发布生产的项目不在服务器域名根目录，记得配置打包的前缀路径，打包后资源才能被正常引用。（以vue-cli为例，配置
-      <code>vue.config.js</code>
-      的
-      <code>publicPath: './'</code>
-      ； 其他框架请自行选择合适的配置文件进行配置）
-    </h4>
-    <h4>
-      *
-      由于office系列格式的文件解析微软不开源，无法保证百分百还原文档效果，若实际需求没有严格要求百分百还原一致，您可以使用纯前端渲染office文件的这种方式，否则建议通过后端统一转为PDF或者图片格式进行浏览，PDF和图片格式的文件浏览效果最佳，内核渲染方案也较为成熟。
-    </h4>
-    <h4>
-      * 或者您也可以通过iframe或者组件形式传递
-      <code>useOfficeMicroOnline = true</code>
-      这个属性开启office系列文件使用内置的微软文档在线访问接口，浏览效果会比纯前端渲染好。
-    </h4>
-    <h2>iframe方式示例（推荐）：</h2>
+    <ul>
+      <li>被浏览的文件链接必须同源或本身支持跨域才能访问和下载文件。</li>
+      <li>
+        若发布生产的项目不在服务器域名根目录，记得配置打包的前缀路径，打包后资源才能被正常引用。（以vue-cli为例，配置
+        <code>vue.config.js</code>
+        的
+        <code>publicPath: './'</code>
+        ； 其他框架请自行选择合适的配置文件进行配置）
+      </li>
+      <li>
+        由于office系列格式的文件解析微软不开源，无法保证百分百还原文档效果，若实际需求没有严格要求百分百还原一致，您可以使用纯前端渲染office文件的这种方式，否则建议通过后端统一转为PDF或者图片格式进行浏览，PDF和图片格式的文件浏览效果最佳，内核渲染方案也较为成熟。
+      </li>
+      <li>
+        或者您也可以通过iframe或者组件形式传递
+        <code>useOfficeMicroOnline = true</code>
+        这个属性开启office系列文件使用内置的微软文档在线访问接口，浏览效果会比纯前端渲染好。
+      </li>
+    </ul>
+    <h2 style="text-align: center;">1、iframe方式示例（推荐）：</h2>
     <h3>使用说明：</h3>
     <h4>
       推荐直接部署本项目最新版本的独立构建产物
@@ -54,7 +55,7 @@
     <h4>此种方式支持跨框架使用。</h4>
     <h3>使用步骤：</h3>
     <h4>
-      1、需要自行前往本项目源码处下载编译构建后的产物
+      （1）需要自行前往本项目源码处下载编译构建后的产物
       <a
         href="https://github.com/zyl-ui/vue-file-viewer/tree/master/public/file-viewer"
         target="_blank"
@@ -64,17 +65,18 @@
       。
     </h4>
     <h4>
-      2、将下载后的 file-viewer
+      （2）将下载后的 file-viewer
       文件夹整个放在项目公共文件夹中作为外部公共资源使用。 （以 vue-cli
       为例，放置在项目 public 文件夹下；其他框架自行选择合适的公共路径放置）
     </h4>
 
-    <h3>一般url传入使用</h3>
+    <h3>使用示例：</h3>
     <section class="demo">
       <div class="section-content">
         <iframe
           src="./file-viewer/index.html?fileUrl=https://file-viewer.me7.cn/fileTest/pdf.pdf"
           scrolling="auto"
+          id="file-viewer"
           style="border:0;height: 500px;width:100%"
         />
       </div>
@@ -83,6 +85,8 @@
       <Collapse>
         <div class="section-content">
           <CodeSnippet class="snippet" :code="iframeSnippet" lang="html" />
+          <div class="plus">+</div>
+          <CodeSnippet class="snippet" :code="iframeSnippet2" lang="js" />
         </div>
       </Collapse>
     </section>
@@ -95,11 +99,11 @@
       <code>http://view.officeapps.live.com/op/view.aspx?src=文件地址</code>
       （隐私文件不推荐开启，该选项内网无联网时不可用）
     </h4>
-    <h4>
-      若手机端通过iframe访问微软文档，整个父页面会被重定向，自
+    <h5>
+      注意事项：若手机端通过iframe访问微软文档，整个父页面会被重定向，自
       <code>v1.2.1</code>
       版本开始，手机端访问时需要用户手动点击跳转查看，pc端可正常访问。
-    </h4>
+    </h5>
     <section class="demo">
       <div class="section-content">
         <iframe
@@ -121,39 +125,13 @@
       </Collapse>
     </section>
 
-    <h3>支持接收二进制文件流消息推送</h3>
-    <h3>注意事项：</h3>
-    <h4>
-      *
-      若为node环境，且发布生产的项目不在服务器域名根目录，这将导致生产和开发环境的引用路径不一致（由于动态赋值的路径只会被编译器原样解析，需要特别注意通过配置打包的前缀路径也不会对此次生效，例如
-      <code>vue-cli</code>
-      的
-      <code>publicPath</code>
-      ），可通过
-      <code>process.env.NODE_ENV</code>
-      进行手动判断。
-    </h4>
-    <h4>* 若为浏览器环境，若有需要可在前面配置统一前缀路径即可。</h4>
-    <section class="demo">
-      <div class="section-content" style="height: 500px" id="blobIframe"></div>
-    </section>
-    <section class="snippets">
-      <Collapse>
-        <div class="section-content">
-          <CodeSnippet class="snippet" :code="blobIframeSnippet1" lang="html" />
-          <div class="plus">+</div>
-          <CodeSnippet class="snippet" :code="blobIframeSnippet2" lang="js" />
-        </div>
-      </Collapse>
-    </section>
-
-    <h2>组件方式示例：</h2>
+    <h2 style="text-align: center;">2、组件方式示例：</h2>
     <h3>安装：</h3>
     <CodeSnippet class="snippet" :code="installSnippet1" lang="js" />
     <CodeSnippet class="snippet" :code="installSnippet2" lang="js" />
     <div>或者页面内按需引入：</div>
     <CodeSnippet class="snippet" :code="installSnippet3" lang="js" />
-    <h3>使用：</h3>
+    <h3>使用示例：</h3>
     <section class="demo">
       <div class="section-content">
         <vue-file-viewer
@@ -172,6 +150,33 @@
         </div>
       </Collapse>
     </section>
+
+    <h2>3、接收blob二进制文件流消息示例</h2>
+    <h3>注意事项：</h3>
+    <ul>
+      <li>
+        若为node环境，且发布生产的项目不在服务器域名根目录，这将导致生产和开发环境的引用路径不一致（由于动态赋值的路径只会被编译器原样解析，需要特别注意通过配置打包的前缀路径也不会对此次生效，例如
+        <code>vue-cli</code>
+        的
+        <code>publicPath</code>
+        ），可通过
+        <code>process.env.NODE_ENV</code>
+        进行手动判断。
+      </li>
+      <li>若为浏览器环境，若有需要可在前面配置统一前缀路径即可。</li>
+    </ul>
+    <section class="demo">
+      <div class="section-content" style="height: 500px" id="blobIframe"></div>
+    </section>
+    <section class="snippets">
+      <Collapse>
+        <div class="section-content">
+          <CodeSnippet class="snippet" :code="blobIframeSnippet1" lang="html" />
+          <div class="plus">+</div>
+          <CodeSnippet class="snippet" :code="blobIframeSnippet2" lang="js" />
+        </div>
+      </Collapse>
+    </section>
   </div>
 </template>
 
@@ -187,6 +192,16 @@ const iframeSnippet = `
   scrolling="auto"
   style="border:0;height: 500px;width:100%"
 />
+`
+
+const iframeSnippet2 = `
+// 添加消息事件监听器来处理iframe发来的消息
+window.addEventListener('message', (event) => {
+  // 处理 fileLoaded 类型的消息
+  if (event.data.type === 'fileLoaded') {
+    console.log('文件加载完成：', event.data.data)
+  }
+})
 `
 
 const useOfficeMicroOnlineSnippet = `
@@ -315,7 +330,7 @@ const componentSnippet1 = `
 <vue-file-viewer :fileUrl="file"  style="height: 500px;" @fileLoaded="fileLoaded"/>
 `
 export default {
-  name: 'Home',
+  name: 'Start',
   components: {
     CodeSnippet,
     Collapse
@@ -325,6 +340,7 @@ export default {
     return {
       config,
       iframeSnippet,
+      iframeSnippet2,
       useOfficeMicroOnlineSnippet,
       blobIframeSnippet1,
       blobIframeSnippet2,
@@ -353,6 +369,14 @@ export default {
   mounted() {
     this.loadFromUrl()
     console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+
+    // 添加消息事件监听器来处理iframe发来的消息
+    window.addEventListener('message', (event) => {
+      // 处理 fileLoaded 类型的消息
+      if (event.data.type === 'fileLoaded') {
+        console.log('文件加载完成：', event.data.data)
+      }
+    })
   },
   methods: {
     // 获取文件二进制流

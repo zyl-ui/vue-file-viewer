@@ -148,6 +148,8 @@ export default {
 
     EventBus.$on('fileLoaded', (event) => {
       this.$emit('fileLoaded', event)
+      // Using postMessage to notify parent window
+      window.parent.postMessage({ type: 'fileLoaded', data: event }, '*')
     })
   },
   methods: {
