@@ -58,6 +58,7 @@
 
 <script>
 import { getExtend, readBuffer, render, fileDownload } from './util'
+import EventBus from './util/EventBus'
 import { typeInfo } from './renders'
 import renders from './renders'
 import { parse } from 'qs'
@@ -144,6 +145,10 @@ export default {
     window.onload = window.onresize = () => {
       this.bodyScale()
     }
+
+    EventBus.$on('fileLoaded', (event) => {
+      this.$emit('fileLoaded', event)
+    })
   },
   methods: {
     fileDownload,

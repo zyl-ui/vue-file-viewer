@@ -1,10 +1,12 @@
 import { defaultOptions, renderAsync } from 'docx-preview'
+import EventBus from './util/EventBus'
 import renderPptx from './vendors/pptx'
 import renderSheet from './vendors/xlsx'
 import renderPdf from './vendors/pdf'
 import renderImage from './vendors/image'
 import renderText from './vendors/text'
 import renderMp4 from './vendors/mp4'
+import renderMusic from './vendors/audio'
 import renderOfficeOnline from './vendors/officeOnline'
 import renderError from './vendors/error'
 import renderNotFind from './vendors/notFind'
@@ -25,6 +27,7 @@ const handlers = [
         experimental: true
       })
       await renderAsync(buffer, target, null, docxOptions)
+      EventBus.$emit('fileLoaded', { fileType: 'doc', success: true })
       return VueWrapper(target)
     }
   },
@@ -87,13 +90,21 @@ const handlers = [
   // 视频预览，仅支持MP4
   {
     parentType: 'video',
-    accepts: ['mp4'],
+    accepts: ['mp4', 'webm', 'ogv'],
     handler: async (buffer, target) => {
       renderMp4(buffer, target)
       return VueWrapper(target)
     }
   },
-  // office文件使用微软在线接口
+  // 音频预览，仅支持MP3, WAV, OGG
+  {
+    parentType: 'audio',
+    accepts: ['mp3', 'wav', 'ogg'],
+    handler: async (buffer, target) => {
+      renderMusic(buffer, target)
+      return VueWrapper(target)
+    }
+  },
   {
     parentType: 'officeOnline',
     accepts: ['officeOnline'],

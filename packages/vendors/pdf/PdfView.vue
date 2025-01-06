@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import myEventBus from '../../util/EventBus'
 import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist/legacy/build/pdf'
 import {
   EventBus,
@@ -66,6 +67,9 @@ export default {
       pdfLinkService.setViewer(pdfViewer)
 
       eventBus.on('pagesinit', () => {
+        // Emit custom event when PDF is fully loaded
+        myEventBus.$emit('fileLoaded', { fileType: 'pdf', success: true })
+
         // We can use pdfViewer now, e.g. let's change default scale.
         pdfViewer.currentScaleValue = 1
 

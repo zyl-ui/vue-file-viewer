@@ -16,6 +16,10 @@
         是否开启使用微软提供的office文件在线访问接口（内网无效，可选，默认false关闭）
       </li>
     </ul>
+    <h3>事件(组件和iframe传参都支持)：</h3>
+    <ul>
+      <li>fileLoaded: function 文档加载完成的回调函数</li>
+    </ul>
     <h3>注意事项：</h3>
     <h4>* 被浏览的文件链接必须同源或本身支持跨域才能访问和下载文件。</h4>
     <h4>
@@ -152,7 +156,11 @@
     <h3>使用：</h3>
     <section class="demo">
       <div class="section-content">
-        <vue-file-viewer :fileUrl="file" style="height: 500px;" />
+        <vue-file-viewer
+          :fileUrl="file"
+          style="height: 500px;"
+          @fileLoaded="fileLoaded"
+        />
       </div>
     </section>
     <section class="snippets">
@@ -294,11 +302,17 @@ data () {
   return {
     file: 'https://file-viewer.me7.cn/fileTest/word.docx' // or 原生 File 文件对象也可以被接收
   }
+},
+methods: {
+  // 文件加载完成：回调
+  fileLoaded(e) {
+    console.log('文件加载完成：', e)
+  }
 }
 `
 
 const componentSnippet1 = `
-<vue-file-viewer :fileUrl="file"  style="height: 500px;" />
+<vue-file-viewer :fileUrl="file"  style="height: 500px;" @fileLoaded="fileLoaded"/>
 `
 export default {
   name: 'Home',
@@ -383,6 +397,10 @@ export default {
       frame.src = src
       frame.style = 'border:0;height: 100%;width:100%'
       return blobIframe.appendChild(frame)
+    },
+    // 文件加载完成：回调
+    fileLoaded(e) {
+      console.log('文件加载完成：', e)
     }
   }
 }

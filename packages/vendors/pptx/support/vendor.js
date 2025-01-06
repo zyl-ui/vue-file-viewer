@@ -481,7 +481,7 @@ async function processGroupSpNode(node, warpObj, source) {
   }
   var order = node['attrs']['order']
 
-  var result = '<div class=\'block group\' style=\'z-index: ' + order + ';' + grpStyle + ' border:1px solid red;\'>'
+  var result = '<div class=\'block group\' style=\'z-index: ' + order + ';' + grpStyle + ' \'>'
 
   // Procsee all child nodes
   for (var nodeKey in node) {

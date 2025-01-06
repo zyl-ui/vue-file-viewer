@@ -1,5 +1,6 @@
 import ExcelJS from 'exceljs'
 import Vue from 'vue'
+import EventBus from '../../util/EventBus'
 import Table from './Table'
 import 'handsontable/dist/handsontable.full.min.css'
 
@@ -15,5 +16,7 @@ export default async function render(buffer, target) {
           workbook
         }
       })
-  }).$mount(target)
+  }).$mount(target).$nextTick(() => {
+    EventBus.$emit('fileLoaded', { fileType: 'excel', success: true });
+  })
 }

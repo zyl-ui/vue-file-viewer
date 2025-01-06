@@ -6,6 +6,8 @@
  * @Descripttion: 渲染mp4
  */
 
+import EventBus from '../../util/EventBus';
+
 /**
  * 渲染mp4
  */
@@ -18,5 +20,9 @@ export default function(buffer, target) {
   const source = document.createElement('source')
   source.src = URL.createObjectURL(new Blob([buffer]))
   mp4.appendChild(source)
+  mp4.addEventListener('loadeddata', function() {
+    // Emit custom event when MP4 is fully loaded
+    EventBus.$emit('fileLoaded', { fileType: 'video', success: true });
+  });
   target.appendChild(mp4)
 }

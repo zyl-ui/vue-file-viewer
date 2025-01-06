@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import EventBus from '../../util/EventBus'
 import $ from 'jquery'
 import { DefaultOptions } from './options'
 import Worker from './worker/pptx.worker'
@@ -98,7 +99,9 @@ export default {
           $wrapper.append(`<style>${msg.data}</style>`)
           break
         case 'Done':
+        case 'ExecutionTime':
           this.isDone = true
+          EventBus.$emit('fileLoaded', { fileType: 'ppt', success: true })
           break
         case 'WARN':
           console.warn('PPTX processing warning: ', msg.data)

@@ -1,4 +1,5 @@
 import { readText } from '../../util'
+import EventBus from '../../util/EventBus'
 import Vue from 'vue'
 import CodeViewer from './CodeViewer'
 
@@ -11,5 +12,7 @@ export default async function renderText(buffer, target) {
   const text = await readText(buffer)
   return new Vue({
     render: (h) => h(CodeViewer, { props: { value: text } })
-  }).$mount(target)
+  }).$mount(target).$nextTick(() => {
+    EventBus.$emit('fileLoaded', { fileType: 'text', success: true });
+  })
 }

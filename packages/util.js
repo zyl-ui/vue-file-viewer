@@ -131,8 +131,6 @@ export function getUrlFileName(url) {
   return file[file.length - 1] || ''
 }
 
-
-
 /**
  * 根据文件类型渲染对应容器
  * @param {buffer} buffer 文件流

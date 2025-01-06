@@ -13,11 +13,13 @@
       :src="item.src"
       :key="item.index"
       class="image"
+      @load="onImageLoad"
     />
   </viewer>
 </template>
 
 <script>
+import EventBus from '../../util/EventBus'
 import Vue from 'vue'
 import viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
@@ -31,6 +33,12 @@ export default {
   computed: {
     images() {
       return this.image ? [{ src: this.image }] : []
+    },
+  },
+  methods: {
+    onImageLoad() {
+      // Emit custom event when image is fully loaded
+      EventBus.$emit('fileLoaded', { fileType: 'image', success: true });
     }
   }
 }

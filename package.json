@@ -1,10 +1,10 @@
 {
   "name": "@zuiyouliao/vue-file-viewer",
-  "version": "1.2.31",
+  "version": "1.2.4",
   "private": false,
   "author": "zhanghan <294333196@qq.com>",
   "license": "MIT",
-  "description": "一个基于vue的跨框架、多格式、纯前端渲染的文件浏览解决方案（支持格式：pptx,docx,xlsx,pdf,mp4,纯文本和图片）",
+  "description": "一个基于vue的跨框架、多格式、纯前端渲染的文件浏览解决方案（支持格式：pptx,docx,xlsx,pdf,视频,音频,纯文本和图片）",
   "directories": {
     "doc": "docs",
     "example": "examples",

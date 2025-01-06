@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-01-15 23:44:23
  * @Descripttion: 渲染微软在线office浏览容器
  */
-
+import EventBus from '../../util/EventBus'
 /**
  * 渲染微软在线office浏览容器
  */
@@ -43,6 +43,11 @@ export default function(url, target) {
     iframe.style = 'border:0;height: 100%;width:100%'
     // 允许执行脚本；允许同域请求；允许进行提交表单；允许模态框
     iframe.sandbox = 'allow-scripts allow-same-origin allow-forms allow-modals'
+
+    iframe.onload = function() {
+      // Emit custom event when Office document is fully loaded
+      EventBus.$emit('fileLoaded', { fileType: 'office', success: true })
+    }
     target.appendChild(iframe)
   }
 }
