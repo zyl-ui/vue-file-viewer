@@ -81,7 +81,8 @@ export default {
       // Loading document.
       const loadingTask = getDocument({
         data: this.data,
-        // cMapUrl: resolve('pdfjs-dist/cmaps/'),
+        // 影响中文区发票预览，pdf文件的编码规则WinAnsiEncoding下的BaseFont为['Courier'] or 编码规则UniGB-UCS2-H下的BaseFont为['KaiTi_GB2312', 'SimSun', 'STSong-Light', 'STSong-Light-UniGB-UCS2-H']任意一个情形，可能会导致无法实现正常渲染，因此建议使用目前最新的编码规则
+        cMapUrl: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/cmaps/',
         cMapPacked: true,
         enableXfa: true
       })
